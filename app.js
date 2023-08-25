@@ -71,9 +71,12 @@ async function createUser(event) {
   // create a new user
   const newUser = { name, title, mail, image };
   const userAsJson = JSON.stringify(newUser);
-  const response = await fetch(`${endpoint}/users.json`, {
+  const response = await fetch(`${endpoint}/users`, {
     method: "POST",
     body: userAsJson,
+    headers: {
+      "content-Type":"application/json"
+    }
   });
 
   if (response.ok) {
@@ -105,9 +108,12 @@ async function updateUser(event) {
   // update user
   const userToUpdate = { name, title, mail, image };
   const userAsJson = JSON.stringify(userToUpdate);
-  const response = await fetch(`${endpoint}/users/${selectedUser.id}.json`, {
+  const response = await fetch(`${endpoint}/users/${selectedUser.id}`, {
     method: "PUT",
     body: userAsJson,
+    headers: {
+      "content-Type": "application/json",
+    },
   });
   if (response.ok) {
     // if success, update the users grid
@@ -119,7 +125,7 @@ async function updateUser(event) {
 
 // ================== DELETE ============ //
 async function deleteUser(id) {
-  const response = await fetch(`${endpoint}/users/${id}.json`, {
+  const response = await fetch(`${endpoint}/users/${id}`, {
     method: "DELETE",
   });
   if (response.ok) {
